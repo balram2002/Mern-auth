@@ -8,12 +8,16 @@ import { useAuthStore } from "../store/authStore";
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [isAdmin, setIsAdmin] = useState(false);
+
 
 	const { login, isLoading, error } = useAuthStore();
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		await login(email, password);
+		await login(email, password, isAdmin ? 'admin' : 'user');
+
+
 	};
 
 	return (
@@ -51,7 +55,18 @@ const LoginPage = () => {
 						</Link>
 					</div>
 					{error && <p className='text-red-500 font-semibold mb-2'>{error}</p>}
-
+                    <div className='flex items-center mb-4'>
+  <input
+    type='checkbox'
+    id='isAdmin'
+    checked={isAdmin}
+    onChange={(e) => setIsAdmin(e.target.checked)}
+    className='mr-2'
+  />
+  <label htmlFor='isAdmin' className='text-sm text-gray-300'>
+    Login as Admin
+  </label>
+</div>
 					<motion.button
 						whileHover={{ scale: 1.02 }}
 						whileTap={{ scale: 0.98 }}
