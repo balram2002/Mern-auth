@@ -9,7 +9,7 @@ export const sendVerificationEmail = async (email, verificationToken) => {
 	const recipient = [{ email }];
 
 	try {
-		const response = transporter.sendMail({
+		const response = await transporter.sendMail({
 			from: sender,
 			to: email,
 			subject: "Verify your email",
@@ -28,7 +28,7 @@ export const sendWelcomeEmail = async (email, name) => {
 	const recipient = [{ email }];
 
 	try {
-		const response = transporter.sendMail({
+		const response =await transporter.sendMail({
 			from: sender,
 			to: email,
 			template_uuid: "e65925d1-a9d1-4a40-ae7c-d92b37d593df",
@@ -50,7 +50,7 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
 	const recipient = [{ email }];
 
 	try {
-		const response = transporter.sendMail({
+		const response = await transporter.sendMail({
 			from: sender,
 			to: email,
 			subject: "Reset your password",
@@ -68,7 +68,7 @@ export const sendResetSuccessEmail = async (email) => {
 	const recipient = [{ email }];
 
 	try {
-		const response = transporter.sendMail({
+		const response = await transporter.sendMail({
 			from: sender,
 			to: email,
 			subject: "Password Reset Successful",
