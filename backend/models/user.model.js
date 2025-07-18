@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
+		isAdmin:{
+        type: String,
+        enum: ['user','admin'],
+        default: 'user'
+         },
+
 		resetPasswordToken: String,
 		resetPasswordExpiresAt: Date,
 		verificationToken: String,

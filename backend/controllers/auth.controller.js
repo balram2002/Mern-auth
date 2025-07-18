@@ -90,7 +90,7 @@ export const verifyEmail = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-	const { email, password } = req.body;
+const { email, password, role } = req.body;
 	try {
 		const user = await User.findOne({ email });
 		if (!user) {
@@ -100,7 +100,9 @@ export const login = async (req, res) => {
 		if (!isPasswordValid) {
 			return res.status(400).json({ success: false, message: "Invalid credentials" });
 		}
-
+if (role === "admin" && user.isAdmin !== "admin") {
+	return res.status(403).json({ success: false, message: "Not authorized as admin" });
+}
 		generateTokenAndSetCookie(res, user._id);
 
 		user.lastLogin = new Date();

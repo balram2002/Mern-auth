@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL ="https://authix-api.vercel.app/api/auth";
+const API_URL ="http://localhost:5000/api/auth";
 
 axios.defaults.withCredentials = true;
 
@@ -23,10 +23,10 @@ export const useAuthStore = create((set) => ({
 			throw error;
 		}
 	},
-	login: async (email, password) => {
+	login: async (email, password,role) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axios.post(`${API_URL}/login`, { email, password });
+			const response = await axios.post(`${API_URL}/login`, { email, password,role });
 			set({
 				isAuthenticated: true,
 				user: response.data.user,
