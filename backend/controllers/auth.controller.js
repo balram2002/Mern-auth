@@ -94,11 +94,11 @@ const { email, password, role } = req.body;
 	try {
 		const user = await User.findOne({ email });
 		if (!user) {
-			return res.status(400).json({ success: false, message: "Invalid credentials" });
+			return res.status(400).json({ success: false, message: "User not found" });
 		}
 		const isPasswordValid = await bcryptjs.compare(password, user.password);
 		if (!isPasswordValid) {
-			return res.status(400).json({ success: false, message: "Invalid credentials" });
+			return res.status(400).json({ success: false, message: "Incorrect Password" });
 		}
 if (role === "admin" && user.isAdmin !== "admin") {
 	return res.status(403).json({ success: false, message: "Not authorized as admin" });
